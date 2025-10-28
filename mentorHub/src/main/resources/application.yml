@@ -1,0 +1,12 @@
+spring:
+application:
+ name: mentorHub
+
+ fayda:
+     client-id: YOUR_CLIENT_ID
+     redirect-uri: http://localhost:8080/api/auth/callback
+     token-endpoint: https://esignet.token.endpoint/token
+     authorization-endpoint: https://esignet.authorization.endpoint/authorize
+     userinfo-endpoint: https://esignet.userinfo.endpoint/userinfo
+     private-key-base64: YOUR_BASE64_JWK_PRIVATE_KEY
+
