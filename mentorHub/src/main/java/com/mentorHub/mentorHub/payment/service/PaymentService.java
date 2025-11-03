@@ -18,12 +18,15 @@ public class PaymentService {
     @Value("${chapa.callback-url}")
     private String callbackUrl;
 
-    private static final String CHAPA_URL = "https://api.chapa.co/v1/transaction/initialize";
+    private static final String CHAPA_INITIALIZE_URL = "https://api.chapa.co/v1/transaction/initialize";
+    private static final String CHAPA_VERIFY_URL = "https://api.chapa.co/v1/transaction/verify/";
     private final RestTemplate restTemplate = new RestTemplate();
 
+    // ✅ Initialize payment
     public String initializePayment(PaymentRequestDto request) throws Exception {
         Map<String, Object> body = new HashMap<>();
         body.put("amount", request.getAmount());
+        body.put("currency", "ETB");
         body.put("email", request.getEmail());
         body.put("first_name", request.getFirstName());
         body.put("last_name", request.getLastName());
@@ -35,20 +38,20 @@ public class PaymentService {
         headers.set("Authorization", "Bearer " + secretKey);
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity(CHAPA_URL, entity, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(CHAPA_INITIALIZE_URL, entity, String.class);
 
         if (response.getStatusCode().is2xxSuccessful()) {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode json = mapper.readTree(response.getBody());
-            return json.path("data").path("checkout_url").asText(); // Chapa redirect link
+            return json.path("data").path("checkout_url").asText();
         }
 
         throw new Exception("Payment initialization failed: " + response.getBody());
     }
 
+    // ✅ Verify payment
     public boolean verifyPayment(String txRef) {
-        String verifyUrl = "https://api.chapa.co/v1/transaction/verify/" + txRef;
+        String verifyUrl = CHAPA_VERIFY_URL + txRef;
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + secretKey);
@@ -67,4 +70,5 @@ public class PaymentService {
         }
         return false;
     }
+
 }
