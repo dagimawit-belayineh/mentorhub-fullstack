@@ -36,3 +36,4 @@ HELP.md
    *.env
    application.yml
    application.properties
+   .env

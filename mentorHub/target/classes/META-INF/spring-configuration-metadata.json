@@ -1,0 +1,35 @@
+{
+  "groups": [
+    {
+      "name": "chapa",
+      "type": "com.mentorHub.mentorHub.config.ChapaConfig",
+      "sourceType": "com.mentorHub.mentorHub.config.ChapaConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "chapa.callback-url",
+      "type": "java.lang.String",
+      "sourceType": "com.mentorHub.mentorHub.config.ChapaConfig"
+    },
+    {
+      "name": "chapa.encryption-key",
+      "type": "java.lang.String",
+      "sourceType": "com.mentorHub.mentorHub.config.ChapaConfig"
+    },
+    {
+      "name": "chapa.public-key",
+      "type": "java.lang.String",
+      "sourceType": "com.mentorHub.mentorHub.config.ChapaConfig"
+    },
+    {
+      "name": "chapa.secret-key",
+      "type": "java.lang.String",
+      "sourceType": "com.mentorHub.mentorHub.config.ChapaConfig"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}
